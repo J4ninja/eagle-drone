@@ -1,0 +1,14 @@
+[Unit]
+Description=Pi Camera Video Stream to QGroundControl
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+ExecStart=/home/robot/eagle-drone/start-gstreamer.sh
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
