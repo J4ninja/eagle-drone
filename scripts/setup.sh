@@ -6,9 +6,9 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 SERVICE_NAME="gstreamer-qgc.service"
 SERVICE_SRC="$REPO_ROOT/service/$SERVICE_NAME"
-START_SCRIPT_SRC="$REPO_ROOT/scripts/start-gstreamer.sh"
+START_SCRIPT_SRC="$REPO_ROOT/scripts/start-gstreamer-qgc.sh"
 SERVICE_DEST="/etc/systemd/system/$SERVICE_NAME"
-START_SCRIPT_DEST="/home/robot/eagle-drone/start-gstreamer.sh"
+START_SCRIPT_DEST="/home/robot/eagle-drone/start-gstreamer-qgc.sh"
 
 if [[ $EUID -ne 0 ]]; then
   echo "Run this script with sudo." >&2
