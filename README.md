@@ -1,7 +1,8 @@
 # EAGLE
 
-ELDP Aerial General Purpose Lightweight Explorer Drone.
+ELDP Aerial General Purpose Lightweight Explorer Drone. The drone will use a Raspberry Pi + Raspberry Pi camera with to stream video feed to [QGroundControl](https://qgroundcontrol.com/) via [GStreamer](https://gstreamer.freedesktop.org/documentation/index.html?gi-language=c).
 
+# Pi Setup
 ## SSH
 SSH once to the Raspberry Pi to establish the host.
 
@@ -41,15 +42,7 @@ Run a live camera feed:
 ./scripts/live_stream.sh # starts a live camera feed (requires GUI login)
 ```
 
-## Service
+# Service
 
 The systemd unit in [service/gstreamer-qgc.service](service/gstreamer-qgc.service) starts the GStreamer pipeline used to stream video from the Pi to QGroundControl.
-
-## Setup
-
-Run the scripts/setup.sh to install the systemd service and start script.
-
-```bash
-sudo scripts/setup.sh
-```
 
