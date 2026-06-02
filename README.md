@@ -1,6 +1,6 @@
 # EAGLE
 
-ELDP Aerial General Purpose Liveweight Explorer Drone.
+ELDP Aerial General Purpose Lightweight Explorer Drone.
 
 ## SSH
 SSH once to the Raspberry Pi to establish the host.
