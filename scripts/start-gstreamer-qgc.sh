@@ -23,11 +23,10 @@ QGC_IP="192.168.1.100"
 #
 # udpsink:
 #   Sends packets to QGroundControl.
-
 exec gst-launch-1.0 -e \
     libcamerasrc ! \
     video/x-raw,width=1280,height=720,framerate=30/1 ! \
     videoconvert ! \
-    x264enc bitrate=2000 tune=zerolatency speed-preset=ultrafast ! \
+    x264enc bitrate=2000 tune=zerolatency speed-preset=ultrafast key-int-max=30 ! \
     rtph264pay config-interval=1 pt=96 ! \
-    udpsink host=${QGC_IP} port=5600
+    udpsink host=${QGC_IP} port=5600 sync=false async=false

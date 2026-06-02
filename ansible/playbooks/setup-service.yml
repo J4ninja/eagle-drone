@@ -14,7 +14,7 @@
     - name: Install start script
       ansible.builtin.copy:
         src: ../../scripts/start-gstreamer-qgc.sh
-        dest: /home/robot/eagle-drone/start-gstreamer-qgc.sh
+        dest: /home/robot/eagle-drone/scripts/start-gstreamer-qgc.sh
         owner: root
         group: root
         mode: "0755"
