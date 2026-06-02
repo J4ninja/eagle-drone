@@ -1,0 +1,33 @@
+---
+- name: Install Pi camera streaming dependencies
+  hosts: raspberrypi
+  become: true
+  tasks:
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install camera and GStreamer packages
+      ansible.builtin.apt:
+        name:
+          - libcamera-apps
+          - python3-picamera2
+          - python3-libcamera
+          - gstreamer1.0-libcamera
+          - libgstreamer1.0-dev
+          - libgstreamer-plugins-base1.0-dev
+          - libgstreamer-plugins-bad1.0-dev
+          - gstreamer1.0-plugins-base
+          - gstreamer1.0-plugins-good
+          - gstreamer1.0-plugins-bad
+          - gstreamer1.0-plugins-ugly
+          - gstreamer1.0-libav
+          - gstreamer1.0-tools
+          - gstreamer1.0-x
+          - gstreamer1.0-alsa
+          - gstreamer1.0-gl
+          - gstreamer1.0-gtk3
+          - gstreamer1.0-qt5
+          - gstreamer1.0-pulseaudio
+        state: present

@@ -1,0 +1,29 @@
+---
+- name: Install systemd service and start script
+  hosts: raspberrypi
+  become: true
+  tasks:
+    - name: Install systemd unit file
+      ansible.builtin.copy:
+        src: ../../service/gstreamer-qgc.service
+        dest: /etc/systemd/system/gstreamer-qgc.service
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Install start script
+      ansible.builtin.copy:
+        src: ../../scripts/start-gstreamer-qgc.sh
+        dest: /home/robot/eagle-drone/start-gstreamer-qgc.sh
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Enable service
+      ansible.builtin.systemd:
+        name: gstreamer-qgc.service
+        enabled: true
