@@ -5,7 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=pi
+User=robot
 ExecStart=/home/robot/eagle-drone/scripts/start-gstreamer-qgc.sh
 Restart=always
 RestartSec=5
