@@ -3,6 +3,14 @@
   hosts: raspberrypi
   become: true
   tasks:
+    - name: Ensure scripts directory exists
+      ansible.builtin.file:
+        path: /home/robot/eagle-drone/scripts
+        state: directory
+        owner: robot
+        group: robot
+        mode: "0755"
+
     - name: Install systemd unit file
       ansible.builtin.copy:
         src: ../../service/gstreamer-qgc.service
@@ -10,20 +18,32 @@
         owner: root
         group: root
         mode: "0644"
+      notify:
+        - Reload systemd
+        - Restart gstreamer-qgc
 
     - name: Install start script
       ansible.builtin.copy:
         src: ../../scripts/start-gstreamer-qgc.sh
         dest: /home/robot/eagle-drone/scripts/start-gstreamer-qgc.sh
-        owner: root
-        group: root
+        owner: robot
+        group: robot
         mode: "0755"
+      notify: Restart gstreamer-qgc
 
+    - name: Enable and start service
+      ansible.builtin.systemd:
+        name: gstreamer-qgc.service
+        enabled: true
+        state: started
+        daemon_reload: true
+
+  handlers:
     - name: Reload systemd
       ansible.builtin.systemd:
         daemon_reload: true
 
-    - name: Enable service
+    - name: Restart gstreamer-qgc
       ansible.builtin.systemd:
         name: gstreamer-qgc.service
-        enabled: true
+        state: restarted
