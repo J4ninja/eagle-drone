@@ -1,6 +1,12 @@
 #!/bin/bash
 set -e
 
+ENV_FILE="/etc/eagle-stream.env"
+if [ -f "$ENV_FILE" ]; then
+    # shellcheck source=/dev/null
+    source "$ENV_FILE"
+fi
+
 QGC_IP="192.168.1.100"
 
 # libcamerasrc:

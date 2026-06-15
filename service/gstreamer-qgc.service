@@ -6,6 +6,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=robot
+EnvironmentFile=-/etc/eagle-stream.env
 ExecStart=/home/robot/eagle-drone/scripts/start-gstreamer-qgc.sh
 Restart=always
 RestartSec=5
