@@ -64,7 +64,7 @@ Run a live camera feed:
 
 The systemd unit in [service/gstreamer-qgc.service](service/gstreamer-qgc.service) starts the GStreamer pipeline used to stream video from the Pi to QGroundControl.
 
-#Scripts.sh
+# Scripts.sh
 stream.sh = main GStreamer pipeline. Reads configuration form /etc/drone-stream.env. Waits for camera to become available then luacheds treams. Called by systemed on boo boot and allows only one process to hold camera at a time. 
 benchmark.sh = tests x264 encoding across speed presets and reports FPS, CPU usage, and output file size for each.
 capture.sh = records H.264 clip to MP4 file
