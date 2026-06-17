@@ -6,7 +6,6 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=robot
-EnvironmentFile=/etc/eagle-stream.env
 ExecStart=/home/robot/eagle-drone/scripts/stream.sh
 Restart=always
 RestartSec=5
