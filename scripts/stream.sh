@@ -4,7 +4,7 @@
 set -e
 
 
-QGC_IP="${QGC_IP:-192.168.1.100}"
+QGC_IP="${QGC_IP:-172.20.10.248}"
 QGC_PORT="${QGC_PORT:-5600}"
 WIDTH="${WIDTH:-1280}"
 HEIGHT="${HEIGHT:-720}"
@@ -36,7 +36,7 @@ wait_for_camera() {
     local attempts=0
     local max=15
     log "Waiting for camera…"
-    while ! cam -l 2>/dev/null | grep -q "Available cameras"; do
+    while ! rpicam-hello --list-cameras 2>/dev/null | grep -q "Available cameras"; do
         attempts=$(( attempts + 1 ))
         if [ "$attempts" -ge "$max" ]; then
             log "ERROR: camera not found after ${max} attempts — aborting."
@@ -49,6 +49,8 @@ wait_for_camera() {
 }
 
 wait_for_camera
+
+echo "HERE"
 
 # ──────────────────────────────────────────────
 # GStreamer pipeline
