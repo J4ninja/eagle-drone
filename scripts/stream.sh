@@ -72,12 +72,9 @@ echo "HERE"
 exec gst-launch-1.0 -e \
     libcamerasrc ! \
     "video/x-raw,width=${WIDTH},height=${HEIGHT},framerate=${FRAMERATE}/1" ! \
-    videoconvert ! \
-    x264enc \
-        bitrate="${BITRATE}" \
-        tune=zerolatency \
-        speed-preset="${PRESET}" \
-        key-int-max="${KEY_INT}" ! \
+    v4l2convert ! \
+    v4l2h264enc extra-controls="encode,video_bitrate=${BITRATE}000" ! \
+    h264parse ! \
     rtph264pay config-interval=1 pt=96 ! \
     udpsink host="${QGC_IP}" port="${QGC_PORT}" sync=false async=false \
     2>&1 | tee -a "$LOG_FILE"
