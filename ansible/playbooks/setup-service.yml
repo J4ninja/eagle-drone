@@ -11,10 +11,19 @@
         group: robot
         mode: "0755"
 
+    - name: Pull latest code
+      ansible.builtin.command: git pull
+      args:
+        chdir: /home/robot/eagle-drone
+      become: true
+      become_user: robot
+      notify: Restart gstreamer-qgc
+
     - name: Install systemd unit file
       ansible.builtin.copy:
-        src: ../../service/gstreamer-qgc.service
+        src: /home/robot/eagle-drone/service/gstreamer-qgc.service
         dest: /etc/systemd/system/gstreamer-qgc.service
+        remote_src: true
         owner: root
         group: root
         mode: "0644"
@@ -22,13 +31,22 @@
         - Reload systemd
         - Restart gstreamer-qgc
 
-    - name: Install start script
-      ansible.builtin.copy:
-        src: ../../scripts/start-gstreamer-qgc.sh
-        dest: /home/robot/eagle-drone/scripts/start-gstreamer-qgc.sh
-        owner: robot
-        group: robot
+    - name: Ensure /etc/eagle-drone directory exists
+      ansible.builtin.file:
+        path: /etc/eagle-drone
+        state: directory
+        owner: root
+        group: root
         mode: "0755"
+
+    - name: Install environment file
+      ansible.builtin.copy:
+        src: /home/robot/eagle-drone/conf/gstreamer-qgc.env
+        dest: /etc/eagle-drone/gstreamer-qgc.env
+        remote_src: true
+        owner: root
+        group: root
+        mode: "0644"
       notify: Restart gstreamer-qgc
 
     - name: Enable and start service
